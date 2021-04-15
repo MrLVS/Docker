@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: back
+    image: mrlvs/backend:examV1
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    command: sh -c './wait-for mongo:27017 -- npm start'
+    environment:
+      PORT: 3002
+      HOST: 0.0.0.0
+      DB_HOST: mongo
+      DB_PORT: 27017
+      DB_NAME: books_db
+      DB_COLLECTION: mybooks
+    ports:
+      - '3000:3002'
+
+    depends_on: 
+      - mongo
+  frontend:
+    container_name: front
+    image: mrlvs/frontend:examV1
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    environment:
+      API_HOST: localhost
+      API_PORT: 3000
+    ports:
+       - '3001:80'
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports: 
+      - '27017'
+    volumes: 
+      - ./db/mongo:/data/db
+      - ./db/config:/data/configdb
+
