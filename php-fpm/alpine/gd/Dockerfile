@@ -15,7 +15,7 @@ RUN set -eux; \
     libwebp-dev \
     libxpm-dev \
   "; \
-  apk add --no-cache --virtual .gd-persistent-deps ${persistentDeps}; \
+  apk add --no-cache ${persistentDeps}; \
   apk add --no-cache --virtual .gd-tmpDeps ${tmpDeps}; \
   \
   docker-php-ext-configure gd \

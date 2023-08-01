@@ -3,7 +3,8 @@ FROM php:8.1-fpm-alpine3.18
 RUN set -eux; \
   persistentDeps="libpq"; \
   tmpDeps="postgresql-dev"; \
-  apk add --no-cache --virtual .pdo_pgsql-persistent-deps ${persistentDeps}; \
+  \
+  apk add --no-cache ${persistentDeps}; \
   apk add --no-cache --virtual .pdo_pgsql-tmpDeps ${tmpDeps}; \
   \
   docker-php-ext-install -j$(nproc) pdo_pgsql; \
