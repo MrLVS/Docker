@@ -3,6 +3,7 @@ FROM php:8.1-fpm-alpine3.18
 RUN set -eux; \
   persistentDeps="icu"; \
   tmpDeps="icu-dev"; \
+  \
   apk add --no-cache ${persistentDeps}; \
   apk add --no-cache --virtual .intl-tmpDeps ${tmpDeps}; \
   \
